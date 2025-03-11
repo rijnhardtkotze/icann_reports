@@ -1,5 +1,8 @@
 [project]
 name = "icann-reports"
+dynamic = [
+    "version",
+]
 description = """
 This project downloads the transaction reports for each registrar at ICANN and processes it for further analysis.
 It fetches CSV files from ICANN's website, normalizes field names, validates data, and generates summary reports.
@@ -15,8 +18,12 @@ dependencies = [
 [project.scripts]
 icann-reports = "icann_reports.main:main"
 
+[project.urls]
+Homepage = "https://www.github.com/rijnhardtkotze/icann-reports-downloader"
+Source = "https://www.github.com/rijnhardtkotze/icann-reports-downloader"
+
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.black]
@@ -35,3 +42,71 @@ markers = ["unit", "integration"]
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.towncrier]
+package = "icann_reports"
+package_dir = "."
+filename = "CHANGELOG.md"
+directory = "changelog.d"
+title_format = "## [{version}](https://github.com/rijnhardtkotze/icann_reports/tree/{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/rijnhardtkotze/icann_reports/issues/{issue})"
+underlines = ["=", "-", "~"]
+start_string = "<!-- towncrier release notes start -->\n"
+wrap = true
+
+[tool.towncrier.fragment.feat]
+name = "Features"
+showcontent = true
+
+[tool.towncrier.fragment.change]
+name = "Changes"
+showcontent = true
+
+[tool.towncrier.fragment.deprecated]
+name = "Deprecated"
+showcontent = true
+
+[tool.towncrier.fragment.removed]
+name = "Removed"
+showcontent = true
+
+[tool.towncrier.fragment.fix]
+name = "Fixes"
+showcontent = true
+
+[tool.towncrier.fragment.security]
+name = "Security"
+showcontent = true
+
+[tool.towncrier.fragment.chore]
+name = "Chores"
+showcontent = true
+
+[tool.towncrier.fragment.deps]
+name = "Dependency Changes"
+check = false
+showcontent = true
+
+[tool.towncrier.fragment.docs]
+name = "Documentation"
+showcontent = true
+
+[tool.towncrier.fragment.other]
+name = "Other Tasks"
+showcontent = false
+
+    [[tool.towncrier.section]]
+    name = "ICANN Reports"
+    path = "icann_reports"
+
+
+    [[tool.towncrier.section]]
+    name = "Shared"
+    path = "shared"
+
+[tool.hatch.metadata.hooks.vcs.urls]
+Homepage = "https://www.github.com/rijnhardtkotze/icann_reports"
+source_archive = "https://www.github.com/rijnhardtkotze/icann_reports/archive/{commit_hash}.zip"
+
+[tool.hatch.build.targets.wheel]
+packages = ["icann_reports"]
