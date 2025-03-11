@@ -1,0 +1,37 @@
+[project]
+name = "icann-reports"
+description = """
+This project downloads the transaction reports for each registrar at ICANN and processes it for further analysis.
+It fetches CSV files from ICANN's website, normalizes field names, validates data, and generates summary reports.
+"""
+authors = [
+    { name = "Rijnhardt Kotze", email = "rijnhardt@kotze.co" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "behave>=1.2.6"
+]
+
+[project.scripts]
+icann-reports = "icann_reports.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203"]
+exclude = [".venv", ".git", "__pycache__", "build", "dist"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+markers = ["unit", "integration"]
+
+[tool.hatch.version]
+source = "vcs"
